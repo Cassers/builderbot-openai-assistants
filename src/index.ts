@@ -4,4 +4,4 @@ import "dotenv/config"
 import { startBotFacebook } from "./bots/facebook";
 
 //startBotWhatsApp()
-startBotFacebook();
+export default startBotFacebook();
