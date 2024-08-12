@@ -91,7 +91,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     // if number of images is 1 then show only a flow Dynamic    
     if (images.length === 1) {
         console.log("Print one image")
-        const formatImage = images[0].replaceAll('[image:', '').replaceAll(']', '')
+        const formatImage = images[0].replaceAll('[imagen:', '[imagen:').replaceAll('[image:', '').replaceAll(']', '')
             //remove ()[]
             .replaceAll(/\[.*?\]/g, '')
         const pathImage = MorfisImagePathList[formatImage]

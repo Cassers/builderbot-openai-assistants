@@ -1,16 +1,16 @@
 //Crear un diccionario de imágenes 
 export const ImagePathList = {
-    '1-Antonella': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '2-Barbie': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '3-Adid': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '4-AtlantaDama': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '5-AtlantaExtra': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '6-Sneakers': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '7-Nitro': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '8-Mia': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '9-Stefany': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '10-Brahama': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-    '11-PlantillaBrahama': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
+    '1-Antonella': "https://i.ibb.co/7VsD7w4/01-Antonella.png",
+    '2-Barbie': "https://i.ibb.co/0jW7CXh/02-Barbie.png",
+    '3-Adid': "https://i.ibb.co/Yy76txH/03-Adid.png",
+    '4-AtlantaDama': "https://i.ibb.co/fSVXC0T/04-Atlanta-Dama.png",
+    '5-AtlantaExtra': "https://i.ibb.co/HFKkxCq/05-Atlanta-Extra.png",
+    '6-Sneakers': "https://i.ibb.co/s20rz2b/06-Sneakers.png",
+    '7-Nitro': "https://i.ibb.co/44GYXmp/07-Nitro.png",
+    '8-Mia': "https://i.ibb.co/wJs7Sw2/08-Mia.png",
+    '9-Stefany': "https://i.ibb.co/9qFjx0g/09-Stefany.png",
+    '10-Brahama': "https://i.ibb.co/RN7vz9p/10-Brahama.png",
+    '11-PlantillaBrahama': "https://i.ibb.co/r6vv9x7/11-Plantilla-Brahama.png",
 };
 
 
@@ -35,6 +35,7 @@ export const MorfisImagePathList = {
 'GRANADAMANGO' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046536/GRANADAMANGO-VERDE_pctmxn.jpg",
 'GRANADAMANGO-VERDE' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046536/GRANADAMANGO-VERDE_pctmxn.jpg",
 'GRANADAMANGO-MORADA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046535/GRANADAMANGO-MORADA_kcmtzl.png",
+'GRANADANUDOS' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046534/GRANADANUDOS-MORADA_xrb1gm.jpg",
 'GRANADANUDOS-MORADA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046534/GRANADANUDOS-MORADA_xrb1gm.jpg",
 'GRANADA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046959/GRANADA-ROJA_rcs9km.jpg",
 'GRANADA-ROJA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046959/GRANADA-ROJA_rcs9km.jpg",
