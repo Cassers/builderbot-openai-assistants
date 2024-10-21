@@ -6,9 +6,6 @@ export default {
         file: 'public/index.js',
         format: 'esm',
     },
-    onwarn: (warning) => {
-        if (warning.code === 'UNRESOLVED_IMPORT') return
-    },
     plugins: [
       typescript({
         tsconfigOverride: {
