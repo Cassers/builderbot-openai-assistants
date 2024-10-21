@@ -63,7 +63,6 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
   //Original chunk: Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro ![Antonella](attachment:3-Antonella)
   //Format chunk:  Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro
   const formatChunk = formatAIResponse(chunk)
-  const originalChunk = chunk
   //get Images
 
   // reformat from ![Antonella](attachment:3-Antonella) to [image:3-Antonella]
@@ -121,7 +120,15 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     console.log("Print multiple images")
     for (const image of images) {
       const formatImage = image.replaceAll('[image:', '').replaceAll(']', '')
-      const pathImage = MorfisImagePathList[formatImage]
+    let pathImage = ''
+      if (formatImage.startsWith('http')) {
+        pathImage = formatImage
+        if (pathImage == 'https://link_de_la_imagen') {
+          continue
+        }
+      } else {
+        MorfisImagePathList[formatImage]
+      }
       console.log('Path Image: ' + pathImage)
       await flowDynamic(
         [{
