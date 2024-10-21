@@ -9,7 +9,11 @@
     "lint": "eslint . --no-ignore",
     "dev": "npm run lint && nodemon ./src/index.ts",
     "build": "npx rollup -c",
-    "dev2": "npm run build && npm run start"
+    "dev2": "npm run build && npm run start",
+    "denoify": "denoify"
+  },
+  "denoify": {
+    "basePath": "./public"
   },
   "keywords": [],
   "dependencies": {
@@ -32,7 +36,8 @@
     "rollup": "4.19.0",
     "rollup-plugin-typescript2": "0.36.0",
     "tsx": "4.16.2",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "fs": "0.0.0"
   },
   "author": "",
   "license": "ISC",
