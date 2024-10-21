@@ -10,7 +10,7 @@ export default {
       typescript({
         tsconfigOverride: {
           compilerOptions: {
-            allowImportingTsExtensions: true
+            noEmit: false // Asegúrate de que no haya conflicto con noEmit
           }
         }
       })
