@@ -38,5 +38,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "cassers-builderbot-69"
-          entrypoint: "./public"
+          entrypoint: "./public/index.js"
           root: ""
