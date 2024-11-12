@@ -8,7 +8,7 @@ import { typing } from "../utils/presence"
 //import { pipeline, WhisperProcessor, WhisperForConditionalGeneration } from '@xenova/transformers';
 import { dirname } from "path"
 import { fileURLToPath } from "url";
-import { MorfisImagePathList } from "../ImagePathList";
+//import { MorfisImagePathList } from "../ImagePathList";
 import { speechToText } from "../audioToText/audioToText"
 import { formatAIResponse } from "./formatAIResponse"
 import { Mutex } from 'async-mutex';
@@ -21,28 +21,84 @@ const PORT = process.env?.PORT ?? 3007
 const ASSISTANT_ID = process.env?.ASSISTANT_ID ?? ''
 const IA_ACTIVE = process.env?.IA_ACTIVE ?? 'false'
 const isIAActive = IA_ACTIVE === 'true'
+const disableNumberList = process.env?.DISABLE_NUMBER_LIST ?? ''
+const disableNumberListArray = disableNumberList.split(',')
+
+const disableChat: { [key: string]: NodeJS.Timeout } = {}
+
+function hostLogic(ctx) {
+  //if message start with resetBot then reset the chat
+  if (ctx.body.toLowerCase().startsWith("resetbot")) { //example "resetBot 1234567890"
+    try{
+      const phone = ctx.body.split(" ")[1]
+      if (phone) {
+        clearTimeout(disableChat[phone])
+        delete disableChat[phone]
+        console.log("Reset chat for " + phone)
+      }
+    }catch(error){
+      console.error(error)
+    }
+    return
+  }
+
+
+  //Disable chat for 1 hour
+  const time = 60 * 60 * 1000
+  //clear previous timeout 
+  if (disableChat[ctx.from]) {
+    clearTimeout(disableChat[ctx.from])
+  }
+
+  //execute with delay
+  disableChat[ctx.from] = setTimeout(async () => {
+    delete disableChat[ctx.from]
+  }, time)
+}
+
+function isDisableChat(from) {
+
+  if (disableNumberListArray.includes(from)){
+    console.log(new Date().toLocaleString(), `Disable Chat for ${from} because is in the list of .env`)
+    return true
+  }
+
+  if (disableChat[from]) {
+    console.log(new Date().toLocaleString(), `Disable Chat for ${from} because is in the list of disableChat`)
+    return true
+  }
+
+  return false
+}
 
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
     try {
-      //console.log("Welcome Flow")
-      //console.log(ctx)
+      console.log("Welcome Flow")
+      console.log(ctx)
       ////console.log(state)
       ////console.log(provider)
       //console.log(ctx.message)
       //console.log(ctx.message?.extendedTextMessage)
       //console.log(ctx.message?.extendedTextMessage?.contextInfo)
-      /*//console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage)
+      //console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage)
       //console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage)
       //console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title)
-      */
-
       
       const body = ctx.body
       const from = ctx.from
-      const host = ctx.host.phone
+      const host = ctx.host
 
-      console.log(new Date().toLocaleString(), `Message from ${from}\n`, body)
+      console.log(new Date().toLocaleString(), `Message for ${host} from me ${ctx.key.fromMe} client ${from}\n`, body)
+
+      if (ctx.key.fromMe) {
+        hostLogic(ctx)
+        return
+      }
+
+      if (isDisableChat(from)) {
+        return
+      }
 
       await typing(ctx, provider)
       await responseText(from, ctx.body, state, flowDynamic, getQuoted(ctx))
@@ -133,8 +189,6 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     let pathImage = ''
     if (formatImage.startsWith('http')) {
       pathImage = formatImage
-    } else {
-      MorfisImagePathList[formatImage]
     }
 
 
@@ -147,7 +201,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
   }
 
   // if number of images is more then show first a flow Dynamic with text and imagen and then show a flow Dynamic for each image
-  if (images.length > 1) {
+  /*if (images.length > 1) {
     //console.log("Print multiple images")
     for (const image of images) {
       const formatImage = image.replaceAll('[image:', '').replaceAll(']', '')
@@ -159,7 +213,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
           media: pathImage
         }]);
     }
-  }
+  }*/
 
 }
 
@@ -300,7 +354,9 @@ function getQuoted(ctx) {
 }
 export const startBotWhatsApp = async () => {
   const adapterFlow = createFlow([welcomeFlow, audioFlow, documentFlow, locationFlow, mediaFlow, orderFlow, templateFlow, actionFlow])
-  const adapterProvider = createProvider(Provider)
+  const adapterProvider = createProvider(Provider, {
+    writeMyself: 'both'
+  })
   const adapterDB = new Database()
 
   const { httpServer } = await createBot({
