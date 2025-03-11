@@ -10,7 +10,7 @@ RUN npm run build
 FROM node:20-slim
 WORKDIR /app
 COPY --from=builder /app/assets ./assets
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
 COPY --from=builder /app/*.json /app/*-lock.yaml ./
 RUN npm install --production
 EXPOSE 3007
