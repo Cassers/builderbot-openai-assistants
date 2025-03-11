@@ -1,20 +1,17 @@
-# Usa una imagen base oficial de Node.js
-FROM node:20
-
-# Establece el directorio de trabajo en el contenedor
+# Primera etapa: builder
+FROM node:20 AS builder
 WORKDIR /app
-
-# Copia el package.json y package-lock.json al directorio de trabajo
 COPY package*.json ./
-
-# Instala las dependencias del proyecto
 RUN npm install
-
-# Copia el resto de los archivos del proyecto al directorio de trabajo
 COPY . .
+RUN npm run build
 
-# Expone el puerto en el que la aplicación se ejecutará
+# Segunda etapa: deploy
+FROM node:20-slim
+WORKDIR /app
+COPY --from=builder /app/assets ./assets
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/*.json /app/*-lock.yaml ./
+RUN npm install --production
 EXPOSE 3007
-
-# Comando para ejecutar la aplicación en modo desarrollo
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
