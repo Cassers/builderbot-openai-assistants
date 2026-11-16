@@ -13,3 +13,6 @@ tmp/*
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Freeze the security-reviewed dependency graph.
+!pnpm-lock.yaml

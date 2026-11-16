@@ -1,0 +1,14 @@
+packages:
+  - '.'
+
+blockExoticSubdeps: true
+
+overrides:
+  libsignal: 6.0.0
+
+allowBuilds:
+  '@ffmpeg-installer/linux-x64': true
+  '@whiskeysockets/baileys': true
+  esbuild: true
+  sharp: true
+  protobufjs: false

@@ -1,0 +1,40 @@
+name: Security runtime build
+
+on:
+  pull_request:
+    paths:
+      - '**/Dockerfile*'
+      - 'Dockerfile*'
+      - '**/package.json'
+      - '**/pnpm-lock.yaml'
+      - '**/pnpm-workspace.yaml'
+      - 'scripts/verify-runtime.cjs'
+      - '.github/workflows/security-runtime.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-runtime-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: Dockerfile
+            context: .
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Build the patched application image
+        env:
+          DOCKERFILE: ${{ matrix.dockerfile }}
+          BUILD_CONTEXT: ${{ matrix.context }}
+        run: docker build --pull --platform linux/amd64 --file "$DOCKERFILE" --build-arg PORT=3008 --tag security-runtime-check "$BUILD_CONTEXT"
+      - name: Verify patched Node and Signal interoperability
+        run: docker run --rm --network none --volume "$PWD/scripts/verify-runtime.cjs:/verify-runtime.cjs:ro" --entrypoint node security-runtime-check /verify-runtime.cjs
