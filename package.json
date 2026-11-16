@@ -8,7 +8,7 @@
     "start": "node ./dist/app.js",
     "lint": "eslint . --no-ignore",
     "dev": "npm run lint && nodemon ./src/app.ts",
-    "build": "npx rollup -c",
+    "build": "pnpm exec rollup -c",
     "dev2": "npm run build && npm run start"
   },
   "keywords": [],
@@ -35,5 +35,6 @@
     "typescript": "5.4.3"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "pnpm@11.15.1"
 }

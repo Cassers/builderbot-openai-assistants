@@ -1,0 +1,8 @@
+{
+  "repository": "WhiskeySockets/libsignal-node",
+  "commit": "bcea72df9ec34d9d9140ab30619cf479c7c144c7",
+  "npm": "libsignal@6.0.0",
+  "runtime_files": 18,
+  "identical": true,
+  "integrity": "sha512-d/5V3YFtDljbFMufz4ncyUYGYhJl+vzAe+c2EFFBQ6bz1h8Q3IOMEGXYMzlibU60I+e8GagMMpji18iez3P1hA=="
+}

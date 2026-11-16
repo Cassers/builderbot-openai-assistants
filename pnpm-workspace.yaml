@@ -1,0 +1,13 @@
+packages:
+  - '.'
+
+blockExoticSubdeps: true
+
+overrides:
+  libsignal: 6.0.0
+
+allowBuilds:
+  '@whiskeysockets/baileys': true
+  esbuild: true
+  sharp: true
+  protobufjs: false
